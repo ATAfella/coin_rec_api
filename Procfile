@@ -1,1 +1,1 @@
-web: python coin_photo_rec.py
+web: gunicorn coin_photo_rec:app

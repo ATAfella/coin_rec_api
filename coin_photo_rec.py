@@ -98,3 +98,7 @@ def recognize_coin_api():
         return jsonify(result)
     else:
         return jsonify({'error': 'Image not provided'}), 400
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

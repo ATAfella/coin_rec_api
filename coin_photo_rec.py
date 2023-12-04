@@ -4,6 +4,8 @@ import json
 import keras
 import numpy as np
 from flask import Flask, request, jsonify
+from keras.preprocessing import image
+from io import BytesIO
 
 ACCESS_KEY = "tua_chiave_secreta"
 
@@ -29,9 +31,9 @@ def load_model_and_classes(model_path_l, classes_path_l):
 
 def recognize_coin(image_path_r, model_r, classes_r):
     # Carica l'immagine
-    # img = image.load_img(image_path_r, target_size=(224, 224))
-    # img = image.img_to_array(img)
-    img = np.expand_dims(image_path_r, axis=0)
+    img = image.load_img(image_path_r, target_size=(224, 224))
+    img = image.img_to_array(img)
+    img = np.expand_dims(img, axis=0)
 
     # Effettua la previsione sull'immagine
     predictions = model_r.predict(img)
@@ -66,19 +68,21 @@ def recognize_coin_api():
 
     if image_data:
         image_data = image_data.split(",")[1]
-        image_bytes = base64.b64decode(image_data)
-        nparr = np.frombuffer(image_bytes, dtype=np.uint8)
+        image_64 = base64.b64decode(image_data)
+        image_bytes = BytesIO(image_64)
 
         if operation == 'observe':
             model_path = r'model/observe_coins_82.59%.h5'
-        else:
+        elif operation == 'reverse':
             model_path = r'model/reverse_coins_100.00%.h5'
+        else:
+            model_path = r'model/valid_coins_83.20%.h5'
 
         # Carica il modello e le classi
         model, classes, c_dict = load_model_and_classes(model_path, classes_path)
 
         # Effettua il riconoscimento
-        recognized_class = recognize_coin(nparr, model, classes)
+        recognized_class = recognize_coin(image_bytes, model, classes)
 
         coin_hash = get_value_for_number(c_dict, recognized_class)
 

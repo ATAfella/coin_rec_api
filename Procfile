@@ -1,0 +1,1 @@
+web: python coin_photo_rec.py

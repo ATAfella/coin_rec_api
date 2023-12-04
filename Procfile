@@ -1,1 +1,0 @@
-web: gunicorn coin_photo_rec:app

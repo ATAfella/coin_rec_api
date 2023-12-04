@@ -5,7 +5,7 @@ FROM python:3.11
 WORKDIR /coin_rec_api
 
 # Copy the application files into the working directory
-COPY . /app
+COPY . /coin_rec_api
 
 # Install the application dependencies
 RUN pip install -r requirements.txt

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Upload or Capture Photo</title>
+</head>
+<body>
+<h1>Upload or Capture Photo</h1>
+<!-- Form for uploading a photo -->
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="photoInput" accept="image/*"/>
+    <button type="button" onclick="uploadPhoto()">Upload Photo</button>
+</form>
+<br>
+<!-- Container for displaying the captured photo -->
+<div id="photoContainer"></div>
+<br>
+<div id="resultContainer">
+    <table id="resultTable"></table>
+</div>
+
+<!-- Overlay fisso con loader -->
+<div id="overlay">
+    <div id="loader">
+        <img src="../static/loader.gif" alt="Loading..." width="64" height="64">
+    </div>
+</div>
+
+<!-- Script -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../static/app.js"></script>
+</body>
+</html>
